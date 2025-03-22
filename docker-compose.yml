@@ -6,11 +6,13 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     ports:
       - "3307:3306"
+    env_file: .env
     environment:
-      MYSQL_ROOT_PASSWORD: ${PASSWORD}
-      MYSQL_DATABASE: rapidinner
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD} 
+      MYSQL_ROOT_HOST: '%'  
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     volumes:
-      - Rapidinner_santt4na:/var/lib/mysql
+      - rapidinner_data:/var/lib/mysql  
 
 volumes:
-  Rapidinner_santt4nas
+  rapidinner_data:
