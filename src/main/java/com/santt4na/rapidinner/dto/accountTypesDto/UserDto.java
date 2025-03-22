@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.santt4na.rapidinner.enums.UserRole;
+import com.santt4na.rapidinner.enums.UserType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +20,7 @@ public abstract class UserDto {
   private Long id;
   private String name;
   private String email;
-  private UserRole role;
+  private UserType role;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 }

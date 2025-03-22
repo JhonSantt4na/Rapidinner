@@ -1,5 +1,7 @@
 package com.santt4na.rapidinner.model.delivery;
 
+import com.santt4na.rapidinner.enums.VehicleTypeEnum;
+
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Vehicle {
-  private String vehicleType;
+  private VehicleTypeEnum vehicleType;
   private String color;
   private String model;
   private String plate;

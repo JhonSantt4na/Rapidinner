@@ -7,64 +7,16 @@ import org.springframework.stereotype.Service;
 
 import com.santt4na.rapidinner.dto.accountTypesDto.UserDto;
 import com.santt4na.rapidinner.dto.accountTypesDto.UserRequestDto;
+import com.santt4na.rapidinner.enums.UserType;
 import com.santt4na.rapidinner.mapper.MapperUser;
 import com.santt4na.rapidinner.model.accountTypes.Admin;
+import com.santt4na.rapidinner.model.accountTypes.Customer;
 import com.santt4na.rapidinner.model.accountTypes.DeliveryMan;
 import com.santt4na.rapidinner.model.accountTypes.User;
+import com.santt4na.rapidinner.model.delivery.AddressApp;
 import com.santt4na.rapidinner.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
-
-/*@RequiredArgsConstructor
-public class UserService {
-
-private final UserRepository userRepository;
-  private final MapperUser mapperUser;
-
-  public UserDto createUser(UserRequestDto userRequest) {
-    if (userRequest.role() == null) {
-      throw new IllegalArgumentException("Role é obrigatória");
-    }
-
-    User newUser = switch (userRequest.role()) {
-      case ROLE_ADMIN -> createAdmin(userRequest);
-      case ROLE_DELIVERYMAN -> createDeliveryMan(userRequest);
-      default -> throw new IllegalArgumentException("Role inválida: " + userRequest.role());
-    };
-
-    User savedUser = userRepository.save(newUser);
-    return mapperUser.toDto(savedUser);
-  }
-
-  private Admin createAdmin(UserRequestDto dto) {
-    return new Admin(
-        dto.name(),
-        dto.email(),
-        dto.role(),
-        dto.active() != null ? dto.active() : true,
-        dto.lastLogin() != null ? dto.lastLogin() : LocalDateTime.now().toString());
-  }
-
-  private DeliveryMan createDeliveryMan(UserRequestDto dto) {
-    return new DeliveryMan(
-        dto.name(),
-        dto.email(),
-        dto.role(),
-        dto.rating(),
-        dto.cnh(),
-        dto.available() != null ? dto.available() : true,
-        convertVehicleDtoToEntity(dto.vehicle()));
-  }
-
-  private Vehicle convertVehicleDtoToEntity(VehicleDto dto) {
-    return new Vehicle(
-        dto.vehicleType(),
-        dto.color(),
-        dto.model(),
-        dto.plate());
-  }
-}
-*/
 
 @Service
 @RequiredArgsConstructor
@@ -74,6 +26,10 @@ public class UserService {
   private final MapperUser mapperUser;
 
   public UserDto createUser(UserRequestDto userRequest) {
+    if (userRequest.role() == null) {
+      throw new IllegalArgumentException("Role selection is required");
+    }
+
     User newUser = switch (userRequest.role()) {
       case ROLE_ADMIN -> new Admin(
           userRequest.name(),
@@ -91,6 +47,25 @@ public class UserService {
           userRequest.available() != null ? userRequest.available() : true,
           mapperUser.vehicleDtoToVehicle(userRequest.vehicle()));
 
+      case ROLE_CUSTOMER -> {
+        Customer customer = new Customer(
+            userRequest.name(),
+            userRequest.email(),
+            userRequest.role(),
+            userRequest.cpf());
+
+        // Valida e adiciona endereços
+        if (userRequest.addresses() != null && !userRequest.addresses().isEmpty()) {
+          userRequest.addresses().forEach((type, addressDto) -> {
+            AddressApp address = mapperUser.addressToAddressDto(addressDto);
+            customer.addAddress(type, address);
+          });
+        } else if (userRequest.role() == UserType.ROLE_CUSTOMER) {
+          throw new IllegalArgumentException("Pelo menos um endereço é obrigatório para Customer");
+        }
+
+        yield customer;
+      }
       default -> throw new IllegalArgumentException("Role inválida: " + userRequest.role());
     };
 
@@ -103,5 +78,6 @@ public class UserService {
     return users.stream()
         .map(mapperUser::toDto)
         .toList();
+
   }
 }

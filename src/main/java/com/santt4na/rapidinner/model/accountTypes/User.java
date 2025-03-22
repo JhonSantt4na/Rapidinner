@@ -5,7 +5,7 @@ import java.time.Instant;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.santt4na.rapidinner.enums.UserRole;
+import com.santt4na.rapidinner.enums.UserType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
@@ -46,9 +46,9 @@ public abstract class User {
 
   private String name;
   private String email;
-  private UserRole role;
+  private UserType role;
 
-  public User(String name, String email, UserRole role) {
+  public User(String name, String email, UserType role) {
     this.name = name;
     this.email = email;
     this.role = role;
