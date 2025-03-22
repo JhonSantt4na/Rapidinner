@@ -2,6 +2,7 @@ package com.santt4na.rapidinner.model.accountTypes;
 
 import java.math.BigDecimal;
 
+import com.santt4na.rapidinner.enums.UserRole;
 import com.santt4na.rapidinner.model.delivery.Vehicle;
 
 import jakarta.persistence.Column;
@@ -38,4 +39,14 @@ public class DeliveryMan extends User {
 
   @Embedded
   private Vehicle vehicle;
+
+  public DeliveryMan(String name, String email, UserRole role, @DecimalMin("0.0") @DecimalMax("5.0") BigDecimal rating,
+      String cnh, boolean available, Vehicle vehicle) {
+    super(name, email, role);
+    this.rating = rating;
+    this.cnh = cnh;
+    this.available = available;
+    this.vehicle = vehicle;
+  }
+
 }

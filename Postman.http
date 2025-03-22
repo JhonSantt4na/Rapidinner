@@ -1,0 +1,26 @@
+POST http://localhost:8080/users
+GET http://localhost:8080/users
+
+ADMIN
+{
+    "name": "Carlos Admin",
+    "email": "carlos@empresa.com",
+    "role": "ROLE_ADMIN",
+    "active": true
+}
+
+DELIVERYMAN
+{
+    "name": "Maria Entregadora",
+    "email": "maria@entregas.com",
+    "role": "ROLE_DELIVERYMAN",
+    "cnh": "123456789",
+    "rating": 4.8,
+    "available": true,
+    "vehicle": {
+        "type": "Moto",
+        "color": "Preta",
+        "model": "Yamaha YBR 150",
+        "plate": "XYZ-9876"
+    }
+}

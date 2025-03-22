@@ -1,4 +1,4 @@
-package com.santt4na.rapidinner.dto.accountTypesDTO;
+package com.santt4na.rapidinner.dto.accountTypesDto;
 
 import java.math.BigDecimal;
 
