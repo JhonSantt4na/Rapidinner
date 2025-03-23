@@ -1,9 +1,5 @@
 package com.santt4na.rapidinner.dto.accountTypesDto;
 
-import java.time.Instant;
-
-import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails.Address;
-
 import com.santt4na.rapidinner.model.delivery.AddressApp;
 
 import jakarta.persistence.DiscriminatorValue;
