@@ -12,12 +12,15 @@ import com.santt4na.rapidinner.mapper.MapperUser;
 import com.santt4na.rapidinner.model.accountTypes.Admin;
 import com.santt4na.rapidinner.model.accountTypes.Customer;
 import com.santt4na.rapidinner.model.accountTypes.DeliveryMan;
+import com.santt4na.rapidinner.model.accountTypes.Merchant;
 import com.santt4na.rapidinner.model.accountTypes.User;
 import com.santt4na.rapidinner.model.delivery.AddressApp;
 import com.santt4na.rapidinner.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -47,6 +50,14 @@ public class UserService {
           userRequest.available() != null ? userRequest.available() : true,
           mapperUser.vehicleDtoToVehicle(userRequest.vehicle()));
 
+      case ROLE_MERCHANT -> new Merchant(
+          userRequest.name(),
+          userRequest.email(),
+          userRequest.role(),
+          userRequest.cnpj(),
+          userRequest.companyName(),
+          userRequest.businessAddress());
+
       case ROLE_CUSTOMER -> {
         Customer customer = new Customer(
             userRequest.name(),
@@ -57,7 +68,7 @@ public class UserService {
         // Valida e adiciona endereços
         if (userRequest.addresses() != null && !userRequest.addresses().isEmpty()) {
           userRequest.addresses().forEach((type, addressDto) -> {
-            AddressApp address = mapperUser.addressToAddressDto(addressDto);
+            AddressApp address = mapperUser.addressDtoToAddress(addressDto);
             customer.addAddress(type, address);
           });
         } else if (userRequest.role() == UserType.ROLE_CUSTOMER) {
@@ -70,11 +81,13 @@ public class UserService {
     };
 
     User savedUser = userRepository.save(newUser);
+    log.info("User Created " + userRequest.role().getValue());
     return mapperUser.toDto(savedUser);
   }
 
   public List<UserDto> findAllUsers() {
     List<User> users = userRepository.findAll();
+    log.info("Listed All Users");
     return users.stream()
         .map(mapperUser::toDto)
         .toList();

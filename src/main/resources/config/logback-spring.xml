@@ -9,6 +9,7 @@
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>Rapidinner.log</file>
+        <immediateFlush>true</immediateFlush>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
@@ -16,6 +17,7 @@
 
     <root level="INFO">
         <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
     </root>
 
     <logger name="com.santt4na.rapidinner_delivery" level="INFO" additivity="false">

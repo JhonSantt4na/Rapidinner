@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.santt4na.rapidinner.dto.deliveryDto.AddressDto;
 import com.santt4na.rapidinner.enums.AddressType;
-import com.santt4na.rapidinner.enums.UserType;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

@@ -24,3 +24,44 @@ DELIVERYMAN
         "plate": "XYZ-9876"
     }
 }
+
+CUSTOMER
+{
+    "name": "Maria CCC",
+    "email": "maria@CCC.com",
+    "role": "ROLE_CUSTOMER",
+    "cpf": "123.456.789-12",
+    "addresses": {
+        "HOME": {
+            "street": "wee",
+            "city": "Bahia",
+            "state": "BA",
+            "number": "1234",
+            "zipCode": "01234-144",
+            "country": "Brasil",
+            "primary": true,
+            "complement": null,
+            "referencePoint": null
+        }
+    }
+}
+
+MERCHANT
+  {
+    "name": "Loja Teste2",
+    "email": "contato@loja2xpto.com",
+    "role": "ROLE_MERCHANT",
+    "cnpj": "12345678000188",
+    "businessAddress": {
+        "street": "Rua das Lojas2",
+        "city": "São Paulo",
+        "state": "SP",
+        "number": "1243",
+        "zipCode": "01001-000",
+        "country": "Brasil",
+        "primary": true,
+        "complement": "Loja 2",
+        "referencePoint": "Próximo ao shopping"
+    },
+    "companyName": "Loj2a XPTO2 LTDA2"
+}
