@@ -1,7 +1,11 @@
-POST http://localhost:8080/users
-GET http://localhost:8080/users
+POST http://localhost:8080/users      -> Criar Usuario
+GET http://localhost:8080/users       -> Listar Todos Usuarios
+GET http://localhost:8080/users/id    -> Busca Usuario por Id
+PUT http://localhost:8080/users/id    -> Atualizar por Id
+DELETE http://localhost:8080/users/id -> Deletar por Id
 
-ADMIN
+
+Criar ADMIN
 {
     "name": "Carlos Admin",
     "email": "carlos@empresa.com",
@@ -9,7 +13,7 @@ ADMIN
     "active": true
 }
 
-DELIVERYMAN
+Criar DELIVERYMAN
 {
     "name": "Maria Entregadora",
     "email": "maria@entregas.com",
@@ -25,7 +29,7 @@ DELIVERYMAN
     }
 }
 
-CUSTOMER
+Criar CUSTOMER
 {
     "name": "Maria CCC",
     "email": "maria@CCC.com",
@@ -46,7 +50,7 @@ CUSTOMER
     }
 }
 
-MERCHANT
+Criar MERCHANT
   {
     "name": "Loja Teste2",
     "email": "contato@loja2xpto.com",
@@ -64,4 +68,24 @@ MERCHANT
         "referencePoint": "Próximo ao shopping"
     },
     "companyName": "Loj2a XPTO2 LTDA2"
+}
+
+Atualizar User 
+{
+    "name": "MarcossLoja",
+    "email": "contato@loja2xpto.com",
+    "role": "ROLE_MERCHANT",
+    "cnpj": "12345678000144",
+    "businessAddress": {
+        "street": "Rua das Lojas2",
+        "city": "São Paulo",
+        "state": "SP",
+        "number": "1243",
+        "zipCode": "01001-000",
+        "country": "Brasil",
+        "primary": true,
+        "complement": "Loja 2",
+        "referencePoint": "Próximo ao shopping"
+    },
+    "companyName": "MiFour"
 }

@@ -1,27 +1,33 @@
 package com.santt4na.rapidinner.mapper;
 
-import com.santt4na.rapidinner.dto.accountTypesDto.AdminDto;
-import com.santt4na.rapidinner.dto.accountTypesDto.CustomerDto;
-import com.santt4na.rapidinner.dto.accountTypesDto.DeliveryManDto;
-import com.santt4na.rapidinner.dto.accountTypesDto.MerchantDto;
+import com.santt4na.rapidinner.dto.businessDto.OrderDto;
+import com.santt4na.rapidinner.dto.businessDto.PaymentDto;
 import com.santt4na.rapidinner.dto.deliveryDto.AddressDto;
 import com.santt4na.rapidinner.dto.deliveryDto.VehicleDto;
+import com.santt4na.rapidinner.dto.typesaccountDto.AdminDto;
+import com.santt4na.rapidinner.dto.typesaccountDto.CustomerDto;
+import com.santt4na.rapidinner.dto.typesaccountDto.DeliveryManDto;
+import com.santt4na.rapidinner.dto.typesaccountDto.MerchantDto;
 import com.santt4na.rapidinner.enums.AddressType;
 import com.santt4na.rapidinner.enums.VehicleTypeEnum;
-import com.santt4na.rapidinner.model.accountTypes.Admin;
-import com.santt4na.rapidinner.model.accountTypes.Customer;
-import com.santt4na.rapidinner.model.accountTypes.DeliveryMan;
-import com.santt4na.rapidinner.model.accountTypes.Merchant;
+import com.santt4na.rapidinner.model.business.Order;
+import com.santt4na.rapidinner.model.business.Payment;
 import com.santt4na.rapidinner.model.delivery.AddressApp;
 import com.santt4na.rapidinner.model.delivery.Vehicle;
+import com.santt4na.rapidinner.model.typesaccount.Admin;
+import com.santt4na.rapidinner.model.typesaccount.Customer;
+import com.santt4na.rapidinner.model.typesaccount.DeliveryMan;
+import com.santt4na.rapidinner.model.typesaccount.Merchant;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-23T12:08:47-0300",
+    date = "2025-03-24T20:44:21-0300",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.41.0.z20250213-2037, environment: Java 21.0.6 (Ubuntu)"
 )
 @Component
@@ -127,6 +133,7 @@ public class MapperUserImpl implements MapperUser {
         customerDto.setRole( customer.getRole() );
         customerDto.setUpdatedAt( map( customer.getUpdatedAt() ) );
         customerDto.setCpf( customer.getCpf() );
+        customerDto.setOrders( orderListToOrderDtoList( customer.getOrders() ) );
 
         return customerDto;
     }
@@ -147,6 +154,7 @@ public class MapperUserImpl implements MapperUser {
         customer.setRole( customerDto.getRole() );
         customer.setUpdatedAt( map( customerDto.getUpdatedAt() ) );
         customer.setCpf( customerDto.getCpf() );
+        customer.setOrders( orderDtoListToOrderList( customerDto.getOrders() ) );
 
         return customer;
     }
@@ -287,6 +295,51 @@ public class MapperUserImpl implements MapperUser {
         return map1;
     }
 
+    protected PaymentDto paymentToPaymentDto(Payment payment) {
+        if ( payment == null ) {
+            return null;
+        }
+
+        PaymentDto paymentDto = new PaymentDto();
+
+        paymentDto.setAmount( payment.getAmount() );
+        paymentDto.setPaymentDate( payment.getPaymentDate() );
+        paymentDto.setStatus( payment.getStatus() );
+
+        return paymentDto;
+    }
+
+    protected OrderDto orderToOrderDto(Order order) {
+        if ( order == null ) {
+            return null;
+        }
+
+        OrderDto orderDto = new OrderDto();
+
+        orderDto.setCustomer( customerToCustomerDto( order.getCustomer() ) );
+        orderDto.setDateTime( order.getDateTime() );
+        orderDto.setDeliveryman( deliveryManToDeliveryManDto( order.getDeliveryman() ) );
+        orderDto.setId( order.getId() );
+        orderDto.setPayment( paymentToPaymentDto( order.getPayment() ) );
+        orderDto.setStatusOrder( order.getStatusOrder() );
+        orderDto.setTotalValue( order.getTotalValue() );
+
+        return orderDto;
+    }
+
+    protected List<OrderDto> orderListToOrderDtoList(List<Order> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<OrderDto> list1 = new ArrayList<OrderDto>( list.size() );
+        for ( Order order : list ) {
+            list1.add( orderToOrderDto( order ) );
+        }
+
+        return list1;
+    }
+
     protected Map<AddressType, AddressApp> addressTypeAddressDtoMapToAddressTypeAddressAppMap(Map<AddressType, AddressDto> map) {
         if ( map == null ) {
             return null;
@@ -301,5 +354,50 @@ public class MapperUserImpl implements MapperUser {
         }
 
         return map1;
+    }
+
+    protected Payment paymentDtoToPayment(PaymentDto paymentDto) {
+        if ( paymentDto == null ) {
+            return null;
+        }
+
+        Payment payment = new Payment();
+
+        payment.setAmount( paymentDto.getAmount() );
+        payment.setPaymentDate( paymentDto.getPaymentDate() );
+        payment.setStatus( paymentDto.getStatus() );
+
+        return payment;
+    }
+
+    protected Order orderDtoToOrder(OrderDto orderDto) {
+        if ( orderDto == null ) {
+            return null;
+        }
+
+        Order order = new Order();
+
+        order.setCustomer( customerDtoToCustomer( orderDto.getCustomer() ) );
+        order.setDateTime( orderDto.getDateTime() );
+        order.setDeliveryman( deliveryManDtoToDeliveryMan( orderDto.getDeliveryman() ) );
+        order.setId( orderDto.getId() );
+        order.setPayment( paymentDtoToPayment( orderDto.getPayment() ) );
+        order.setStatusOrder( orderDto.getStatusOrder() );
+        order.setTotalValue( orderDto.getTotalValue() );
+
+        return order;
+    }
+
+    protected List<Order> orderDtoListToOrderList(List<OrderDto> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<Order> list1 = new ArrayList<Order>( list.size() );
+        for ( OrderDto orderDto : list ) {
+            list1.add( orderDtoToOrder( orderDto ) );
+        }
+
+        return list1;
     }
 }

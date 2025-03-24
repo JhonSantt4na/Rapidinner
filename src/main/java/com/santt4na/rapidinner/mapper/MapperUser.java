@@ -9,20 +9,20 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.springframework.stereotype.Component;
 
-import com.santt4na.rapidinner.dto.accountTypesDto.AdminDto;
-import com.santt4na.rapidinner.dto.accountTypesDto.CustomerDto;
-import com.santt4na.rapidinner.dto.accountTypesDto.DeliveryManDto;
-import com.santt4na.rapidinner.dto.accountTypesDto.MerchantDto;
-import com.santt4na.rapidinner.dto.accountTypesDto.UserDto;
 import com.santt4na.rapidinner.dto.deliveryDto.AddressDto;
 import com.santt4na.rapidinner.dto.deliveryDto.VehicleDto;
-import com.santt4na.rapidinner.model.accountTypes.Admin;
-import com.santt4na.rapidinner.model.accountTypes.Customer;
-import com.santt4na.rapidinner.model.accountTypes.DeliveryMan;
-import com.santt4na.rapidinner.model.accountTypes.Merchant;
-import com.santt4na.rapidinner.model.accountTypes.User;
+import com.santt4na.rapidinner.dto.typesaccountDto.AdminDto;
+import com.santt4na.rapidinner.dto.typesaccountDto.CustomerDto;
+import com.santt4na.rapidinner.dto.typesaccountDto.DeliveryManDto;
+import com.santt4na.rapidinner.dto.typesaccountDto.MerchantDto;
+import com.santt4na.rapidinner.dto.typesaccountDto.UserDto;
 import com.santt4na.rapidinner.model.delivery.AddressApp;
 import com.santt4na.rapidinner.model.delivery.Vehicle;
+import com.santt4na.rapidinner.model.typesaccount.Admin;
+import com.santt4na.rapidinner.model.typesaccount.Customer;
+import com.santt4na.rapidinner.model.typesaccount.DeliveryMan;
+import com.santt4na.rapidinner.model.typesaccount.Merchant;
+import com.santt4na.rapidinner.model.typesaccount.User;
 
 @Mapper(componentModel = "spring")
 @Component
