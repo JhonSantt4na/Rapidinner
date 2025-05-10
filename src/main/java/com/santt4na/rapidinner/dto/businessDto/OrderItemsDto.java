@@ -1,0 +1,20 @@
+package com.santt4na.rapidinner.dto.businessDto;
+
+import java.math.BigDecimal;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrderItemsDto {
+
+  private Integer amount;
+  private BigDecimal unitPrice;
+  private OrderDto order;
+  private ProductDto product;
+}

@@ -1,0 +1,59 @@
+package com.santt4na.rapidinner.model.typesaccount;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.santt4na.rapidinner.enums.UserType;
+import com.santt4na.rapidinner.model.business.Order;
+import com.santt4na.rapidinner.model.delivery.Vehicle;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@DiscriminatorValue("DELIVERY_MAN")
+public class DeliveryMan extends User {
+
+  @DecimalMin("0.0")
+  @DecimalMax("5.0")
+  @Column(precision = 3, scale = 2)
+  private BigDecimal rating;
+
+  private String cnh;
+
+  private boolean available;
+
+  @Embedded
+  private Vehicle vehicle;
+
+  @OneToMany(mappedBy = "deliveryman")
+  private List<Order> order = new ArrayList<>();
+
+  public DeliveryMan(String name, String email, UserType role, @DecimalMin("0.0") @DecimalMax("5.0") BigDecimal rating,
+      String cnh, boolean available, Vehicle vehicle) {
+    super(name, email, role);
+    this.rating = rating;
+    this.cnh = cnh;
+    this.available = available;
+    this.vehicle = vehicle;
+  }
+
+}
